@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableTblPrestamo" header="TblPrestamoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tblPrestamoView.data}" var="tblPrestamo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tblPrestamo.idPrestamo}" sortBy="#{tblPrestamo.idPrestamo}" >
+										 <f:facet name="header">
+										<h:outputText value="idPrestamo"/>
+										</f:facet>
+										 <h:outputText value="#{tblPrestamo.idPrestamo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tblPrestamo.fecha}" sortBy="#{tblPrestamo.fecha}" >
+										 <f:facet name="header">
+										<h:outputText value="Fecha"/>
+										</f:facet>
+										 <h:outputText value="#{tblPrestamo.fecha}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblPrestamo.fechaFin}" sortBy="#{tblPrestamo.fechaFin}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaFin"/>
+										</f:facet>
+										 <h:outputText value="#{tblPrestamo.fechaFin}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblPrestamo.usuario}" sortBy="#{tblPrestamo.usuario}" >
+										 <f:facet name="header">
+										<h:outputText value="Usuario"/>
+										</f:facet>
+										 <h:outputText value="#{tblPrestamo.usuario}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblPrestamo.vencido}" sortBy="#{tblPrestamo.vencido}" >
+										 <f:facet name="header">
+										<h:outputText value="Vencido"/>
+										</f:facet>
+										 <h:outputText value="#{tblPrestamo.vencido}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTblPrestamo"
+										actionListener="#{tblPrestamoView.action_edit}">
+										<f:attribute name="selectedTblPrestamo" value="#{tblPrestamo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tblPrestamoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTblPrestamo" value="#{tblPrestamo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tblPrestamoView.action_new()}" update=":dialogTblPrestamo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTblPrestamo" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{tblPrestamoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelTblPrestamo" header="TblPrestamo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPrestamo" value="IdPrestamo"/>
+									 <p:inputText id="txtIdPrestamo" binding="#{tblPrestamoView.txtIdPrestamo}">
+									 <p:ajax update=":dialogTblPrestamo" listener="#{tblPrestamoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgUsuario" value=" Usuario"/>
+									<p:inputText id="txtUsuario" disabled="true" binding="#{tblPrestamoView.txtUsuario}"/>
+																		<h:outputText id="msgVencido" value=" Vencido"/>
+									<p:inputText id="txtVencido" disabled="true" binding="#{tblPrestamoView.txtVencido}"/>
+																		
+																													<h:outputText id="msgFecha" value=" Fecha"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tblPrestamoView.txtFecha}" >
+										<p:ajax event="dateSelect" listener="#{tblPrestamoView.listener_txtFecha}"  />
+										</p:calendar>
+																				<h:outputText id="msgFechaFin" value=" FechaFin"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tblPrestamoView.txtFechaFin}" >
+										<p:ajax event="dateSelect" listener="#{tblPrestamoView.listener_txtFechaFin}"  />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tblPrestamoView.btnSave}" value="Save" action="#{tblPrestamoView.action_save()}" update=":dialogTblPrestamo :frm:panelDataTableTblPrestamo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tblPrestamoView.action_clear()}" update=":dialogTblPrestamo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tblPrestamoView.action_closeDialog()}" update=":dialogTblPrestamo" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

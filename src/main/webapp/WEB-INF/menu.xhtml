@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	
+
+		<h:form id="menuform">
+							
+								<p:menubar toggleable="true">
+								
+									<p:submenu label="Master" icon="ui-icon-pencil">  
+							            
+							            	 								                    <p:menuitem value="Master TblDetallePrestamo" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblDetallePrestamo.xhtml" />  
+											 								                    <p:menuitem value="Master TblLibros" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblLibros.xhtml" />  
+											 								                    <p:menuitem value="Master TblPrestamo" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblPrestamo.xhtml" />  
+											 								                    <p:menuitem value="Master TblSanciones" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblSanciones.xhtml" />  
+											 							        </p:submenu>  
+															
+															
+							  
+							        <p:submenu label="Data Table" icon="ui-icon-document">
+							                								                    <p:menuitem value="TblDetallePrestamo" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblDetallePrestamoListDataTable.xhtml" />  
+											 								                    <p:menuitem value="TblLibros" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblLibrosListDataTable.xhtml" />  
+											 								                    <p:menuitem value="TblPrestamo" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblPrestamoListDataTable.xhtml" />  
+											 								                    <p:menuitem value="TblSanciones" url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tblSancionesListDataTable.xhtml" />  
+											 							        </p:submenu>  
+							  
+						        	<p:menuitem value="Logout"
+										url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+										icon="ui-icon-close" />  
+						    
+			</p:menubar>
+		</h:form>
+</ui:composition>

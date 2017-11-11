@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelTblDetallePrestamo" header="TblDetallePrestamo">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdDetalle" value="IdDetalle"/>
+						 	<p:inputText id="txtIdDetalle" binding="#{tblDetallePrestamoView.txtIdDetalle}">
+						 		<p:ajax update="panelTblDetallePrestamo,msg,panelBotones" listener="#{tblDetallePrestamoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{tblDetallePrestamoView.txtActivo}"/>
+													<h:outputText id="msgIdLibro_TblLibros" value=" IdLibro_TblLibros"/>
+							<p:inputText id="txtIdLibro_TblLibros" disabled="true" binding="#{tblDetallePrestamoView.txtIdLibro_TblLibros}"/>
+													<h:outputText id="msgIdPrestamo_TblPrestamo" value=" IdPrestamo_TblPrestamo"/>
+							<p:inputText id="txtIdPrestamo_TblPrestamo" disabled="true" binding="#{tblDetallePrestamoView.txtIdPrestamo_TblPrestamo}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{tblDetallePrestamoView.btnSave}" disabled="true" value="Save" action="#{tblDetallePrestamoView.action_save()}" update="panelTblDetallePrestamo,msg,panelBotones" />
+						<p:commandButton id="btnDelete" binding="#{tblDetallePrestamoView.btnDelete}" disabled="true" value="Delete" action="#{tblDetallePrestamoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelTblDetallePrestamo,msg,panelBotones" />
+						<p:commandButton id="btnClear" value="Clear" action="#{tblDetallePrestamoView.action_clear()}" update="panelTblDetallePrestamo,msg,panelBotones" />
+					</div>
+				</p:panel>			
+			</h:form>
+  </ui:define>
+</ui:composition>

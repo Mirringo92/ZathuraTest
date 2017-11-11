@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableTblDetallePrestamo" header="TblDetallePrestamoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tblDetallePrestamoView.data}" var="tblDetallePrestamo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tblDetallePrestamo.idDetalle}" sortBy="#{tblDetallePrestamo.idDetalle}" >
+										 <f:facet name="header">
+										<h:outputText value="idDetalle"/>
+										</f:facet>
+										 <h:outputText value="#{tblDetallePrestamo.idDetalle}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tblDetallePrestamo.activo}" sortBy="#{tblDetallePrestamo.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{tblDetallePrestamo.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblDetallePrestamo.idLibro_TblLibros}" sortBy="#{tblDetallePrestamo.idLibro_TblLibros}" >
+										 <f:facet name="header">
+										<h:outputText value="IdLibro_TblLibros"/>
+										</f:facet>
+										 <h:outputText value="#{tblDetallePrestamo.idLibro_TblLibros}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblDetallePrestamo.idPrestamo_TblPrestamo}" sortBy="#{tblDetallePrestamo.idPrestamo_TblPrestamo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPrestamo_TblPrestamo"/>
+										</f:facet>
+										 <h:outputText value="#{tblDetallePrestamo.idPrestamo_TblPrestamo}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTblDetallePrestamo"
+										actionListener="#{tblDetallePrestamoView.action_edit}">
+										<f:attribute name="selectedTblDetallePrestamo" value="#{tblDetallePrestamo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tblDetallePrestamoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTblDetallePrestamo" value="#{tblDetallePrestamo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tblDetallePrestamoView.action_new()}" update=":dialogTblDetallePrestamo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTblDetallePrestamo" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{tblDetallePrestamoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelTblDetallePrestamo" header="TblDetallePrestamo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdDetalle" value="IdDetalle"/>
+									 <p:inputText id="txtIdDetalle" binding="#{tblDetallePrestamoView.txtIdDetalle}">
+									 <p:ajax update=":dialogTblDetallePrestamo" listener="#{tblDetallePrestamoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{tblDetallePrestamoView.txtActivo}"/>
+																		<h:outputText id="msgIdLibro_TblLibros" value=" IdLibro_TblLibros"/>
+									<p:inputText id="txtIdLibro_TblLibros" disabled="true" binding="#{tblDetallePrestamoView.txtIdLibro_TblLibros}"/>
+																		<h:outputText id="msgIdPrestamo_TblPrestamo" value=" IdPrestamo_TblPrestamo"/>
+									<p:inputText id="txtIdPrestamo_TblPrestamo" disabled="true" binding="#{tblDetallePrestamoView.txtIdPrestamo_TblPrestamo}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tblDetallePrestamoView.btnSave}" value="Save" action="#{tblDetallePrestamoView.action_save()}" update=":dialogTblDetallePrestamo :frm:panelDataTableTblDetallePrestamo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tblDetallePrestamoView.action_clear()}" update=":dialogTblDetallePrestamo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tblDetallePrestamoView.action_closeDialog()}" update=":dialogTblDetallePrestamo" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

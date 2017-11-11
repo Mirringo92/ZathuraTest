@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelTblPrestamo" header="TblPrestamo">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdPrestamo" value="IdPrestamo"/>
+						 	<p:inputText id="txtIdPrestamo" binding="#{tblPrestamoView.txtIdPrestamo}">
+						 		<p:ajax update="panelTblPrestamo,msg,panelBotones" listener="#{tblPrestamoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgUsuario" value=" Usuario"/>
+							<p:inputText id="txtUsuario" disabled="true" binding="#{tblPrestamoView.txtUsuario}"/>
+													<h:outputText id="msgVencido" value=" Vencido"/>
+							<p:inputText id="txtVencido" disabled="true" binding="#{tblPrestamoView.txtVencido}"/>
+												
+																				<h:outputText id="msgFecha" value=" Fecha"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tblPrestamoView.txtFecha}" >
+								<p:ajax event="dateSelect" listener="#{tblPrestamoView.listener_txtFecha}" />
+							</p:calendar>
+														<h:outputText id="msgFechaFin" value=" FechaFin"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tblPrestamoView.txtFechaFin}" >
+								<p:ajax event="dateSelect" listener="#{tblPrestamoView.listener_txtFechaFin}" />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{tblPrestamoView.btnSave}" disabled="true" value="Save" action="#{tblPrestamoView.action_save()}" update="panelTblPrestamo,msg,panelBotones" />
+						<p:commandButton id="btnDelete" binding="#{tblPrestamoView.btnDelete}" disabled="true" value="Delete" action="#{tblPrestamoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelTblPrestamo,msg,panelBotones" />
+						<p:commandButton id="btnClear" value="Clear" action="#{tblPrestamoView.action_clear()}" update="panelTblPrestamo,msg,panelBotones" />
+					</div>
+				</p:panel>			
+			</h:form>
+  </ui:define>
+</ui:composition>

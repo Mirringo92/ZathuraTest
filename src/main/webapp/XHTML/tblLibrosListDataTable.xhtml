@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableTblLibros" header="TblLibrosData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tblLibrosView.data}" var="tblLibros"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tblLibros.idLibro}" sortBy="#{tblLibros.idLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="idLibro"/>
+										</f:facet>
+										 <h:outputText value="#{tblLibros.idLibro}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tblLibros.autor}" sortBy="#{tblLibros.autor}" >
+										 <f:facet name="header">
+										<h:outputText value="Autor"/>
+										</f:facet>
+										 <h:outputText value="#{tblLibros.autor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblLibros.descripcionLibro}" sortBy="#{tblLibros.descripcionLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="DescripcionLibro"/>
+										</f:facet>
+										 <h:outputText value="#{tblLibros.descripcionLibro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tblLibros.nombreLibro}" sortBy="#{tblLibros.nombreLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="NombreLibro"/>
+										</f:facet>
+										 <h:outputText value="#{tblLibros.nombreLibro}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTblLibros"
+										actionListener="#{tblLibrosView.action_edit}">
+										<f:attribute name="selectedTblLibros" value="#{tblLibros}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tblLibrosView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTblLibros" value="#{tblLibros}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tblLibrosView.action_new()}" update=":dialogTblLibros" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTblLibros" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{tblLibrosView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelTblLibros" header="TblLibros">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdLibro" value="IdLibro"/>
+									 <p:inputText id="txtIdLibro" binding="#{tblLibrosView.txtIdLibro}">
+									 <p:ajax update=":dialogTblLibros" listener="#{tblLibrosView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAutor" value=" Autor"/>
+									<p:inputText id="txtAutor" disabled="true" binding="#{tblLibrosView.txtAutor}"/>
+																		<h:outputText id="msgDescripcionLibro" value=" DescripcionLibro"/>
+									<p:inputText id="txtDescripcionLibro" disabled="true" binding="#{tblLibrosView.txtDescripcionLibro}"/>
+																		<h:outputText id="msgNombreLibro" value=" NombreLibro"/>
+									<p:inputText id="txtNombreLibro" disabled="true" binding="#{tblLibrosView.txtNombreLibro}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tblLibrosView.btnSave}" value="Save" action="#{tblLibrosView.action_save()}" update=":dialogTblLibros :frm:panelDataTableTblLibros" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tblLibrosView.action_clear()}" update=":dialogTblLibros" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tblLibrosView.action_closeDialog()}" update=":dialogTblLibros" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

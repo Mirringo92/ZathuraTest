@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelTblSanciones" header="TblSanciones">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdSancion" value="IdSancion"/>
+						 	<p:inputText id="txtIdSancion" binding="#{tblSancionesView.txtIdSancion}">
+						 		<p:ajax update="panelTblSanciones,msg,panelBotones" listener="#{tblSancionesView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{tblSancionesView.txtActivo}"/>
+													<h:outputText id="msgIdDetalle_TblDetallePrestamo" value=" IdDetalle_TblDetallePrestamo"/>
+							<p:inputText id="txtIdDetalle_TblDetallePrestamo" disabled="true" binding="#{tblSancionesView.txtIdDetalle_TblDetallePrestamo}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{tblSancionesView.btnSave}" disabled="true" value="Save" action="#{tblSancionesView.action_save()}" update="panelTblSanciones,msg,panelBotones" />
+						<p:commandButton id="btnDelete" binding="#{tblSancionesView.btnDelete}" disabled="true" value="Delete" action="#{tblSancionesView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelTblSanciones,msg,panelBotones" />
+						<p:commandButton id="btnClear" value="Clear" action="#{tblSancionesView.action_clear()}" update="panelTblSanciones,msg,panelBotones" />
+					</div>
+				</p:panel>			
+			</h:form>
+  </ui:define>
+</ui:composition>
